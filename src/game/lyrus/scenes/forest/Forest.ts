@@ -17,7 +17,7 @@ export class Forest extends Scene<LyrusEntityMap> {
     return {
       background: backgroundImage,
       waypoints: [
-        ['back', 600, 530, 0.3, Orientation.N],
+        ['back', 600, 530, 0.3, Orientation.S],
         ['center', 420, 620, 1],
         ['clearing', 320, 540, 0.8],
         ['cauldron-spot', 730, 600, 0.9]
@@ -40,8 +40,6 @@ export class Forest extends Scene<LyrusEntityMap> {
     api.entity('cauldron').onUse((state, sceneApi) => {
       sceneApi.entity('cauldron').patchState({isBubbling: !state.isBubbling})
     })
-
-    api.zone(this.id, 'back-zone').setInteraction('back', null)
 
     api.entity('key').onUse((_, api) => {
       alert('Oh, ein Schluessel!')

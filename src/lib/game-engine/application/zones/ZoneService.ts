@@ -10,7 +10,7 @@ export class ZoneService<T extends EntityMapBase> {
   private api!: GameApi<T>
 
   constructor(
-    private readonly navigationApi: NavigationApi,
+    private readonly navigationApi: NavigationApi<T>,
     private readonly entityService: EntityService<T>) {
   }
 

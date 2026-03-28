@@ -1,16 +1,19 @@
 import {RenderingService} from './rendering/RenderingService'
-import {HeroMovementExecutor} from './application/navigation/HeroMovementExecuror'
 import type {EntityMapBase} from './domain/entities/EntityTypes'
+import type {ActionService} from './application/actions/ActionService'
+import type {HeroPresentationRuntime} from './application/presentation/HeroPresentationRuntime'
 
 export class ActiveGameSession<T extends EntityMapBase = EntityMapBase> {
   
   constructor(
     private readonly renderPipeline: RenderingService<T>,
-    private readonly movementExecutor: HeroMovementExecutor) {
+    private readonly actionService: ActionService<T>,
+    private readonly presentationRuntime: HeroPresentationRuntime) {
   }
   
   destroy(): void {
     this.renderPipeline.destroy()
-    this.movementExecutor.destroy()
+    this.actionService.destroy()
+    this.presentationRuntime.destroy()
   }
 }

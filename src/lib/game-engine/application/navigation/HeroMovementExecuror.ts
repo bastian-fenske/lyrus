@@ -22,6 +22,8 @@ export class HeroMovementExecutor {
       map,
       getHeroState,
       updateHeroState,
+      setScene: () => {},
+      inspectEntity: () => {},
       requestAnimationFrame: callback => requestAnimationFrame(callback),
       cancelAnimationFrame: id => cancelAnimationFrame(id)
     }

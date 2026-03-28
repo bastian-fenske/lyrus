@@ -1,7 +1,5 @@
 import {SceneService} from './application/scene/SceneService'
 import {GameMap} from './domain/navigation/GameMap'
-import {HeroMovementService} from './application/navigation/HeroMovementService'
-import {HeroMovementExecutor} from './application/navigation/HeroMovementExecuror'
 import {GameApi} from './application/GameApi'
 import {RenderingService} from './rendering/RenderingService'
 import {ActiveGameSession} from './ActiveGameSession'
@@ -14,6 +12,10 @@ import {Orientation} from './domain/navigation/Orientation'
 import type {SceneLayout} from './domain/layout/SceneLayout'
 import {SceneRenderApi} from './rendering/entities/SceneRenderApi'
 import {NavigationApi} from './application/navigation/NavigationApi'
+import {HeroIntentCompiler} from './application/actions/HeroIntentCompiler'
+import {HeroPresentationRuntime} from './application/presentation/HeroPresentationRuntime'
+import {HeroPresentationService} from './application/presentation/HeroPresentationService'
+import {ActionService} from './application/actions/ActionService'
 
 export class GameEngine {
 
@@ -27,12 +29,20 @@ export class GameEngine {
 
     const map = new GameMap()
     const sceneService = new SceneService()
-    const heroMovementService = new HeroMovementService(map, sceneService)
+    const heroPresentationService = new HeroPresentationService()
     const entityService = new EntityService(game.initialEntityState)
-    const navigationApi = new NavigationApi(heroMovementService)
+    const heroIntentCompiler = new HeroIntentCompiler<T>(map)
+    const presentationRuntime = new HeroPresentationRuntime(
+      map,
+      () => heroPresentationService.getHeroRenderState(),
+      updater => heroPresentationService.updateHeroRenderState(updater),
+      sceneId => sceneService.goTo(sceneId),
+      entityId => entityService.inspect(entityId as Extract<keyof T, string>))
+    const actionService = new ActionService<T>(presentationRuntime, heroIntentCompiler)
+    const navigationApi = new NavigationApi<T>(actionService)
     const zoneService = new ZoneService(navigationApi, entityService)
 
-    const gameApi = new GameApi(map, heroMovementService, entityService, zoneService)
+    const gameApi = new GameApi(map, actionService, entityService, zoneService)
     zoneService.registerApi(gameApi)
 
     const layoutsBySceneId = this.registerLayouts(gameApi, game.scenes)
@@ -46,21 +56,15 @@ export class GameEngine {
       scene.setUpRendering(new SceneRenderApi(scene.id, (binding) => renderingService.registerEntityBinding(binding)))
     })
 
-    const movementExecutor = new HeroMovementExecutor(
-      map,
-      heroMovementService.heroMovesCommands$,
-      () => heroMovementService.getHeroRenderState(),
-      updater => heroMovementService.updateHeroRenderState(updater))
-
     game.load(gameApi)
 
     await renderingService.start(
       game,
       layoutsBySceneId,
       sceneService.currentScene$,
-      heroMovementService.heroRenderState$)
+      heroPresentationService.heroRenderState$)
 
-    this.session = new ActiveGameSession(renderingService, movementExecutor)
+    this.session = new ActiveGameSession(renderingService, actionService, presentationRuntime)
   }
 
   private registerLayouts<T extends EntityMapBase>(gameApi: GameApi<T>, scenes: Array<{id: string, setUpLayout: () => SceneLayout<T>}>): Map<string, SceneLayout<T>> {

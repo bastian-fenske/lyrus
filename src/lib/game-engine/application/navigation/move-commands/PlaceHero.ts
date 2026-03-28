@@ -12,6 +12,7 @@ export class PlaceHero implements HeroMoveCommand {
 
   async execute(ctx: HeroExecutionContext): Promise<void> {
 
+    ctx.setScene(this.wayPointRef.sceneId)
     const targetWayPoint = ctx.map.getWayPoint(this.wayPointRef)
     if (targetWayPoint === null) {
       throw new Error(`WayPoint not found: ${this.wayPointRef}`)

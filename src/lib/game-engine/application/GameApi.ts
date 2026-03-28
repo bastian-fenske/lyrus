@@ -1,9 +1,10 @@
 import type {EntityId, EntityMapBase} from '../domain/entities/EntityTypes'
 import type {GameMap} from '../domain/navigation/GameMap'
+import {ActionsApi} from './actions/ActionsApi'
+import type {ActionService} from './actions/ActionService'
 import type {EntityService} from './entities/EntityService'
 import {MapApi} from './navigation/MapApi'
 import {NavigationApi} from './navigation/NavigationApi'
-import type {HeroMovementService} from './navigation/HeroMovementService'
 import {EntityHandle, SceneZoneHandle} from './scene/SceneApi'
 import type {ZoneService} from './zones/ZoneService'
 import {ZonesApi} from './zones/ZonesApi'
@@ -11,17 +12,19 @@ import {ZonesApi} from './zones/ZonesApi'
 export class GameApi<T extends EntityMapBase> {
 
   public readonly map: MapApi
-  public readonly navigation: NavigationApi
+  public readonly navigation: NavigationApi<T>
+  public readonly actions: ActionsApi<T>
   public readonly zones: ZonesApi<T>
 
   constructor(
     map: GameMap,
-    heroMovementService: HeroMovementService,
+    actionService: ActionService<T>,
     private readonly entityService: EntityService<T>,
     private readonly zoneService: ZoneService<T>) {
     
     this.map = new MapApi(map)
-    this.navigation = new NavigationApi(heroMovementService)
+    this.actions = new ActionsApi(actionService)
+    this.navigation = new NavigationApi(actionService)
     this.zones = new ZonesApi(this.zoneService)
   }
 
