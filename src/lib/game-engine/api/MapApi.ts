@@ -1,7 +1,7 @@
-import type {GameMap} from '../../domain/navigation/GameMap'
-import type {WayPoint} from '../../domain/navigation/WayPoint'
-import {Path} from '../../domain/navigation/Path'
-import {WayPointRef} from '../../domain/navigation/WayPointRef'
+import type {GameMap} from '../domain/navigation/GameMap'
+import type {WayPoint} from '../domain/navigation/WayPoint'
+import {Path} from '../domain/navigation/Path'
+import {WayPointRef} from '../domain/navigation/WayPointRef'
 
 export class MapApi {
   

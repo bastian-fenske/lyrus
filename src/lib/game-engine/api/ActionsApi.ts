@@ -1,6 +1,6 @@
-import type {EntityMapBase} from '../../domain/entities/EntityTypes'
-import type {ActionIntent, ActionState, PresentationActionState, SubmitActionOptions} from './ActionTypes'
-import type {ActionService} from './ActionService'
+import type {EntityMapBase} from '../domain/entities/EntityTypes'
+import type {ActionIntent, ActionState, SubmitActionOptions} from '../application/actions/ActionTypes'
+import type {ActionService} from '../application/actions/ActionService'
 
 export class ActionsApi<T extends EntityMapBase> {
 
@@ -21,9 +21,5 @@ export class ActionsApi<T extends EntityMapBase> {
 
   public getState(actionId: string): ActionState<T> | null {
     return this.actionService.getState(actionId)
-  }
-
-  public getPresentationState(actionId: string): PresentationActionState | null {
-    return this.actionService.getPresentationState(actionId)
   }
 }

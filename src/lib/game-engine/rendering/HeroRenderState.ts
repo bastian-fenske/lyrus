@@ -1,4 +1,4 @@
-import {Orientation} from '../../domain/navigation/Orientation'
+import {Orientation} from '../domain/navigation/Orientation'
 
 export const HERO_BASE_SIZE = 512
 

@@ -1,7 +1,7 @@
-import type {ActionService} from '../actions/ActionService'
-import type {EntityMapBase} from '../../domain/entities/EntityTypes'
-import {WayPointRef} from '../../domain/navigation/WayPointRef'
-import type {Orientation} from '../../domain/navigation/Orientation'
+import type {ActionService} from '../application/actions/ActionService'
+import type {EntityMapBase} from '../domain/entities/EntityTypes'
+import {WayPointRef} from '../domain/navigation/WayPointRef'
+import type {Orientation} from '../domain/navigation/Orientation'
 
 export class NavigationApi<T extends EntityMapBase> {
   

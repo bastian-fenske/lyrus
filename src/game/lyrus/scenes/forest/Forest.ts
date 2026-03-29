@@ -4,7 +4,7 @@ import type {SceneRenderApi} from '../../../../lib/game-engine/rendering/entitie
 import type {LyrusEntityMap} from '../../LyrusEntities'
 // @ts-ignore
 import backgroundImage from './assets/background.png'
-import type {GameApi} from '../../../../lib/game-engine/application/GameApi'
+import type {GameApi} from '../../../../lib/game-engine/api/GameApi'
 import {Orientation} from '../../../../lib/game-engine/domain/navigation/Orientation'
 
 export class Forest extends Scene<LyrusEntityMap> {

@@ -1,13 +1,13 @@
 import type {EntityId, EntityMapBase} from '../domain/entities/EntityTypes'
 import type {GameMap} from '../domain/navigation/GameMap'
-import {ActionsApi} from './actions/ActionsApi'
-import type {ActionService} from './actions/ActionService'
-import type {EntityService} from './entities/EntityService'
-import {MapApi} from './navigation/MapApi'
-import {NavigationApi} from './navigation/NavigationApi'
-import {EntityHandle, SceneZoneHandle} from './scene/SceneApi'
-import type {ZoneService} from './zones/ZoneService'
-import {ZonesApi} from './zones/ZonesApi'
+import {ActionsApi} from './ActionsApi'
+import type {ActionService} from '../application/actions/ActionService'
+import type {EntityService} from '../application/entities/EntityService'
+import {MapApi} from './MapApi'
+import {NavigationApi} from './NavigationApi'
+import {EntityHandle, SceneZoneHandle} from './SceneApi'
+import type {ZoneService} from '../application/zones/ZoneService'
+import {ZonesApi} from './ZonesApi'
 
 export class GameApi<T extends EntityMapBase> {
 

@@ -1,6 +1,6 @@
 import {Application, Assets, Sprite} from 'pixi.js'
-import type {HeroRenderState} from '../application/navigation/HeroRenderState'
-import {HERO_BASE_SIZE} from '../application/navigation/HeroRenderState'
+import type {HeroRenderState} from './HeroRenderState'
+import {HERO_BASE_SIZE} from './HeroRenderState'
 import {getHeroTextureUrl} from '../../../game/lyrus/assets/hero/heroTextures'
 
 export class HeroRendererService {

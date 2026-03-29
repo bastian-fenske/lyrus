@@ -1,7 +1,7 @@
 import type {SceneRenderApi} from '../rendering/entities/SceneRenderApi'
 import type {EntityMapBase} from './entities/EntityTypes'
 import type {SceneLayout} from './layout/SceneLayout'
-import type {GameApi} from '../application/GameApi'
+import type {GameApi} from '../api/GameApi'
 
 export abstract class Scene<T extends EntityMapBase> {
 

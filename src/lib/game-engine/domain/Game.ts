@@ -1,4 +1,4 @@
-import type {GameApi} from '../application/GameApi'
+import type {GameApi} from '../api/GameApi'
 import type {EntityMapBase} from './entities/EntityTypes'
 import type {Scene} from './Scene'
 

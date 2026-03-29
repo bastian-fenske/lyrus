@@ -1,6 +1,6 @@
 import {SceneService} from './application/scene/SceneService'
 import {GameMap} from './domain/navigation/GameMap'
-import {GameApi} from './application/GameApi'
+import {GameApi} from './api/GameApi'
 import {RenderingService} from './rendering/RenderingService'
 import {ActiveGameSession} from './ActiveGameSession'
 import type {GameDefinition} from './domain/GameDefinition'
@@ -11,10 +11,10 @@ import {WayPoint} from './domain/navigation/WayPoint'
 import {Orientation} from './domain/navigation/Orientation'
 import type {SceneLayout} from './domain/layout/SceneLayout'
 import {SceneRenderApi} from './rendering/entities/SceneRenderApi'
-import {NavigationApi} from './application/navigation/NavigationApi'
+import {NavigationApi} from './api/NavigationApi'
 import {HeroIntentCompiler} from './application/actions/HeroIntentCompiler'
-import {HeroPresentationRuntime} from './application/presentation/HeroPresentationRuntime'
-import {HeroPresentationService} from './application/presentation/HeroPresentationService'
+import {HeroPresentationRuntime} from './presentation/HeroPresentationRuntime'
+import {HeroPresentationService} from './presentation/HeroPresentationService'
 import {ActionService} from './application/actions/ActionService'
 
 export class GameEngine {
@@ -37,10 +37,11 @@ export class GameEngine {
       () => heroPresentationService.getHeroRenderState(),
       updater => heroPresentationService.updateHeroRenderState(updater),
       sceneId => sceneService.goTo(sceneId),
+      entityId => entityService.use(entityId as Extract<keyof T, string>),
       entityId => entityService.inspect(entityId as Extract<keyof T, string>))
     const actionService = new ActionService<T>(presentationRuntime, heroIntentCompiler)
     const navigationApi = new NavigationApi<T>(actionService)
-    const zoneService = new ZoneService(navigationApi, entityService)
+    const zoneService = new ZoneService(navigationApi)
 
     const gameApi = new GameApi(map, actionService, entityService, zoneService)
     zoneService.registerApi(gameApi)

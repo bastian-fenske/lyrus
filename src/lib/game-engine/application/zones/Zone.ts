@@ -1,5 +1,5 @@
 import type {EntityMapBase, EntityId} from '../../domain/entities/EntityTypes'
-import type {GameApi} from '../GameApi'
+import type {GameApi} from '../../api/GameApi'
 
 export class Zone<T extends EntityMapBase> {
 

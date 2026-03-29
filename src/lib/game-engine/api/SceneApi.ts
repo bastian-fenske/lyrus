@@ -1,7 +1,7 @@
-import type {EntityService} from '../entities/EntityService'
-import type {ZoneService} from '../zones/ZoneService'
-import type {EntityId, EntityMapBase} from '../../domain/entities/EntityTypes'
-import type {GameApi} from '../GameApi'
+import type {EntityService} from '../application/entities/EntityService'
+import type {ZoneService} from '../application/zones/ZoneService'
+import type {EntityId, EntityMapBase} from '../domain/entities/EntityTypes'
+import type {GameApi} from './GameApi'
 
 export class EntityHandle<T extends EntityMapBase, K extends EntityId<T>> {
 

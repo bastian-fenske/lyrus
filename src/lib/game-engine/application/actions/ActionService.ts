@@ -4,7 +4,7 @@ import type {WayPointRef} from '../../domain/navigation/WayPointRef'
 import type {HeroMoveCommand} from '../navigation/move-commands/HeroMoveCommand'
 import type {HeroIntentCompiler} from './HeroIntentCompiler'
 import type {ActionIntent, ActionState, ActorId, QueueMode, SubmitActionOptions} from './ActionTypes'
-import type {HeroPresentationRuntime} from '../presentation/HeroPresentationRuntime'
+import type {HeroPresentationRuntime} from '../../presentation/HeroPresentationRuntime'
 
 interface ActorQueue {
   queued: string[]
@@ -132,10 +132,6 @@ export class ActionService<T extends EntityMapBase> {
 
   public getState(actionId: string): ActionState<T> | null {
     return this.actions.get(actionId)?.state ?? null
-  }
-
-  public getPresentationState(actionId: string) {
-    return this.runtime.getPresentationState(actionId)
   }
 
   public destroy(): void {

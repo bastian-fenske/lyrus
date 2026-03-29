@@ -22,7 +22,12 @@ export interface InvestigateIntent<T extends EntityMapBase> {
   targetSceneId?: string
 }
 
-export type ActionIntent<T extends EntityMapBase> = MoveIntent | InvestigateIntent<T>
+export interface UseIntent<T extends EntityMapBase> {
+  type: 'use'
+  entityId: EntityId<T>
+}
+
+export type ActionIntent<T extends EntityMapBase> = MoveIntent | InvestigateIntent<T> | UseIntent<T>
 
 export type ActionStatus = 'queued' | 'running' | 'cancelled' | 'completed' | 'failed'
 

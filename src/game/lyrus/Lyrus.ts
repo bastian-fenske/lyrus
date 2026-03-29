@@ -1,6 +1,6 @@
 import {Game} from '../../lib/game-engine/domain/Game'
 import type {Scene} from '../../lib/game-engine/domain/Scene'
-import type {GameApi} from '../../lib/game-engine/application/GameApi'
+import type {GameApi} from '../../lib/game-engine/api/GameApi'
 import {Orientation} from '../../lib/game-engine/domain/navigation/Orientation'
 import {SorceressHutOutside} from './scenes/sorceress-hut-outside/SorceressHutOutside'
 import {SorceressHutInside} from './scenes/sorceress-hut-inside/SorceressHutInside'

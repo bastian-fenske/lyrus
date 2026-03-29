@@ -9,7 +9,8 @@ import {MoveTo} from '../navigation/move-commands/MoveTo'
 import {PlaceHero} from '../navigation/move-commands/PlaceHero'
 import {SwitchScene} from '../navigation/move-commands/SwitchScene'
 import {TurnTo} from '../navigation/move-commands/TurnTo'
-import type {ActionIntent, InvestigateIntent, MoveIntent} from './ActionTypes'
+import {UseEntity} from '../navigation/move-commands/UseEntity'
+import type {ActionIntent, InvestigateIntent, MoveIntent, UseIntent} from './ActionTypes'
 
 export interface CompiledHeroIntent {
   commands: HeroMoveCommand[]
@@ -47,6 +48,8 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
         return this.compileMove(intent)
       case 'investigate':
         return this.compileInvestigate(intent)
+      case 'use':
+        return this.compileUse(intent)
       default:
         throw new Error(`Unsupported hero intent: ${(intent as {type: string}).type}`)
     }
@@ -153,6 +156,12 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
     commands.push(new InspectEntity(intent.entityId))
 
     return {commands}
+  }
+
+  private compileUse(intent: UseIntent<T>): CompiledHeroIntent {
+    return {
+      commands: [new UseEntity(intent.entityId)]
+    }
   }
 
   private buildPortalCommands(wayPointRef: WayPointRef): HeroMoveCommand[] {

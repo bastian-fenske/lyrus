@@ -1,7 +1,7 @@
 import {RenderingService} from './rendering/RenderingService'
 import type {EntityMapBase} from './domain/entities/EntityTypes'
 import type {ActionService} from './application/actions/ActionService'
-import type {HeroPresentationRuntime} from './application/presentation/HeroPresentationRuntime'
+import type {HeroPresentationRuntime} from './presentation/HeroPresentationRuntime'
 
 export class ActiveGameSession<T extends EntityMapBase = EntityMapBase> {
   

@@ -1,8 +1,7 @@
 import type {EntityMapBase, EntityId} from '../../domain/entities/EntityTypes'
 import {Zone} from './Zone'
-import type {NavigationApi} from '../navigation/NavigationApi'
-import type {EntityService} from '../entities/EntityService'
-import type {GameApi} from '../GameApi'
+import type {NavigationApi} from '../../api/NavigationApi'
+import type {GameApi} from '../../api/GameApi'
 
 export class ZoneService<T extends EntityMapBase> {
 
@@ -10,8 +9,7 @@ export class ZoneService<T extends EntityMapBase> {
   private api!: GameApi<T>
 
   constructor(
-    private readonly navigationApi: NavigationApi<T>,
-    private readonly entityService: EntityService<T>) {
+    private readonly navigationApi: NavigationApi<T>) {
   }
 
   public add(
@@ -58,8 +56,21 @@ export class ZoneService<T extends EntityMapBase> {
     }
 
     if (zone.wayPointName !== null && zone.entityId !== null) {
-      this.navigationApi.moveTo(zone.wayPointName, sceneId)
-      this.entityService.use(zone.entityId)
+      this.api.actions.submit('hero', {
+        type: 'move',
+        targetWayPointName: zone.wayPointName,
+        targetSceneId: sceneId
+      }, {
+        mode: 'replace-current',
+        blocking: true
+      })
+      this.api.actions.submit('hero', {
+        type: 'use',
+        entityId: zone.entityId
+      }, {
+        mode: 'enqueue',
+        blocking: true
+      })
       return
     }
 
@@ -69,7 +80,13 @@ export class ZoneService<T extends EntityMapBase> {
     }
 
     if (zone.entityId !== null) {
-      this.entityService.use(zone.entityId)
+      this.api.actions.submit('hero', {
+        type: 'use',
+        entityId: zone.entityId
+      }, {
+        mode: 'replace-current',
+        blocking: true
+      })
     }
   }
 

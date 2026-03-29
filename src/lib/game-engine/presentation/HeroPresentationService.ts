@@ -1,5 +1,5 @@
 import {BehaviorSubject} from 'rxjs'
-import {initialHeroRenderState, type HeroRenderState} from '../navigation/HeroRenderState'
+import {initialHeroRenderState, type HeroRenderState} from '../rendering/HeroRenderState'
 
 export class HeroPresentationService {
 

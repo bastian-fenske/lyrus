@@ -5,7 +5,7 @@ import type {SceneRenderApi} from '../../../../lib/game-engine/rendering/entitie
 import type {LyrusEntityMap} from '../../LyrusEntities'
 // @ts-ignore
 import backgroundImage from './assets/background.png'
-import type {GameApi} from '../../../../lib/game-engine/application/GameApi'
+import type {GameApi} from '../../../../lib/game-engine/api/GameApi'
 
 export class SorceressHutInside extends Scene<LyrusEntityMap> {
 

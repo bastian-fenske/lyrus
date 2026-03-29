@@ -8,7 +8,7 @@ import backgroundImage from './assets/background.png'
 // @ts-ignore
 import doorTexture from './assets/door-closed.png'
 import {Assets} from 'pixi.js'
-import type {GameApi} from '../../../../lib/game-engine/application/GameApi'
+import type {GameApi} from '../../../../lib/game-engine/api/GameApi'
 
 export class SorceressHutOutside extends Scene<LyrusEntityMap> {
 

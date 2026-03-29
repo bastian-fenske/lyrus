@@ -1,5 +1,5 @@
-import type {EntityId, EntityMapBase} from '../../domain/entities/EntityTypes'
-import type {ZoneService} from './ZoneService'
+import type {EntityId, EntityMapBase} from '../domain/entities/EntityTypes'
+import type {ZoneService} from '../application/zones/ZoneService'
 
 export class ZonesApi<T extends EntityMapBase> {
   
