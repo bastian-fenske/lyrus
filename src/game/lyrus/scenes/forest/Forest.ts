@@ -17,7 +17,7 @@ export class Forest extends Scene<LyrusEntityMap> {
     return {
       background: backgroundImage,
       waypoints: [
-        ['back', 600, 530, 0.3, Orientation.S],
+        ['back', 600, 530, 0.3, Orientation.S, 'sorceress-hut-outside::forest-exit'],
         ['center', 420, 620, 1],
         ['clearing', 320, 540, 0.8],
         ['cauldron-spot', 730, 600, 0.9]
@@ -47,8 +47,6 @@ export class Forest extends Scene<LyrusEntityMap> {
       key.patchState({collected: true})
       api.zones.get(this.id, 'key-zone').enabled = false // Won't trigger
     })
-    
-    api.map.getWayPoint('forest::back').setPortal('sorceress-hut-outside::forest-exit')
   }
 
   public setUpRendering(render: SceneRenderApi<LyrusEntityMap>): void {

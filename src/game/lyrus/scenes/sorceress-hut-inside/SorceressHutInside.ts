@@ -17,7 +17,7 @@ export class SorceressHutInside extends Scene<LyrusEntityMap> {
     return {
       background: backgroundImage,
       waypoints: [
-        ['entry', 520, 1040, 2, Orientation.N],
+        ['entry', 520, 1040, 2, Orientation.N, 'sorceress-hut-outside::door'],
         ['inside-center', 420, 560, 0.9]
       ],
       paths: [
@@ -34,8 +34,6 @@ export class SorceressHutInside extends Scene<LyrusEntityMap> {
 
     api.zone(this.id, 'entry-zone').setInteraction('entry', null)
     api.zone(this.id, 'center-zone').setInteraction('inside-center', null)
-    
-    api.map.getWayPoint('sorceress-hut-inside::entry').setPortal('sorceress-hut-outside::door')
   }
 
   public setUpRendering(_render: SceneRenderApi<LyrusEntityMap>): void {

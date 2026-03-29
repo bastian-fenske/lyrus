@@ -1,7 +1,7 @@
 import type {Orientation} from '../navigation/Orientation'
 import type {EntityId, EntityMapBase} from '../entities/EntityTypes'
 
-export type WayPointLayoutEntry = [name: string, x: number, y: number, scale: number, entryOrientation?: Orientation | null]
+export type WayPointLayoutEntry = [name: string, x: number, y: number, scale: number, entryOrientation?: Orientation | null, portalTarget?: string | null]
 
 export type PathLayoutEntry = [from: string, to: string, duration: number]
 

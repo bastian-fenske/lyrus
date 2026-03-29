@@ -5,9 +5,10 @@ import type {ActionService} from '../application/actions/ActionService'
 import type {EntityService} from '../application/entities/EntityService'
 import {MapApi} from './MapApi'
 import {NavigationApi} from './NavigationApi'
-import {EntityHandle, SceneZoneHandle} from './SceneApi'
+import {SceneZoneHandle} from '../application/zones/SceneZoneHandle'
 import type {ZoneService} from '../application/zones/ZoneService'
 import {ZonesApi} from './ZonesApi'
+import {EntityHandle} from '../application/entities/EntityHandle'
 
 export class GameApi<T extends EntityMapBase> {
 

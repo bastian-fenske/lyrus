@@ -75,12 +75,15 @@ export class GameEngine {
       const layout = scene.setUpLayout()
       layoutsBySceneId.set(scene.id, layout)
 
-      layout.waypoints.forEach(([name, x, y, scale, entryOrientation = null]) => {
+      layout.waypoints.forEach(([name, x, y, scale, entryOrientation = null, portalTarget = null]) => {
         const wayPoint = new WayPoint(name, x, y, scale)
         if (entryOrientation !== null) {
           wayPoint.setEntryOrientation(entryOrientation)
         } else {
           wayPoint.setEntryOrientation(Orientation.S)
+        }
+        if (portalTarget !== null) {
+          wayPoint.setPortal(portalTarget)
         }
         gameApi.map.addWayPoint(scene.id, wayPoint)
       })

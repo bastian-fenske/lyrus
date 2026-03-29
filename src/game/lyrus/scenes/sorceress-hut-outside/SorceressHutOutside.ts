@@ -9,6 +9,7 @@ import backgroundImage from './assets/background.png'
 import doorTexture from './assets/door-closed.png'
 import {Assets} from 'pixi.js'
 import type {GameApi} from '../../../../lib/game-engine/api/GameApi'
+import {interval} from 'rxjs'
 
 export class SorceressHutOutside extends Scene<LyrusEntityMap> {
 
@@ -22,7 +23,7 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
       waypoints: [
         ['center', 400, 590, 1],
         ['door', 550, 480, 0.6, Orientation.SW],
-        ['forest-exit', 620, 750, 1.5, Orientation.N]
+        ['forest-exit', 620, 750, 1.5, Orientation.N, 'forest::back']
       ],
       paths: [
         ['center', 'door', 1.1],
@@ -58,11 +59,14 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
     }))
     api.zone(this.id, 'forest-zone').setInteraction('forest-exit', null)
 
-    api.entity('door').onUse((state, sceneApi) => {
-      sceneApi.entity('door').patchState({isOpen: !state.isOpen})
+    api.entity('door').onUse((state, gameApi) => {
+      gameApi.entity('door').patchState({isOpen: !state.isOpen})
     })
-
-    api.map.getWayPoint('sorceress-hut-outside::forest-exit').setPortal('forest::back')
+    
+    setInterval(() => {
+      const isOpen = api.entity('door').getState().isOpen
+      api.entity('door').patchState({isOpen: !isOpen})
+    }, 2000)
   }
 
   public async setUpRendering(render: SceneRenderApi<LyrusEntityMap>): Promise<void> {
@@ -70,7 +74,7 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
     await Assets.load(doorTexture)
     
     render.entity('door', (view, state, oldState) => {
-      view.position = {x: 454, y: 210}
+      view.position = {x: 454, y: 211}
       view.width = 234
       view.height = 279
       view.visible = !state.isOpen
