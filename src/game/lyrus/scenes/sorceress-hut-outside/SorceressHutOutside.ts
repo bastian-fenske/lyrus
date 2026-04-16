@@ -9,7 +9,6 @@ import backgroundImage from './assets/background.png'
 import doorTexture from './assets/door-closed.png'
 import {Assets} from 'pixi.js'
 import type {GameApi} from '../../../../lib/game-engine/api/GameApi'
-import {interval} from 'rxjs'
 
 export class SorceressHutOutside extends Scene<LyrusEntityMap> {
 
@@ -62,11 +61,6 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
     api.entity('door').onUse((state, gameApi) => {
       gameApi.entity('door').patchState({isOpen: !state.isOpen})
     })
-    
-    setInterval(() => {
-      const isOpen = api.entity('door').getState().isOpen
-      api.entity('door').patchState({isOpen: !isOpen})
-    }, 2000)
   }
 
   public async setUpRendering(render: SceneRenderApi<LyrusEntityMap>): Promise<void> {
@@ -81,7 +75,7 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
       view.texture = doorTexture
       view.zIndex = 0
 
-      if (oldState !== null && oldState.isOpen === false && state.isOpen) {
+      if (oldState !== null && !oldState.isOpen && state.isOpen) {
         view.playAnimation('door_open')
       }
     })

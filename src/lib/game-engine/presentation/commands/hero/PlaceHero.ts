@@ -1,9 +1,9 @@
-import type {HeroMoveCommand} from './HeroMoveCommand'
-import type {HeroExecutionContext} from '../HeroExecutionContext'
+import type {HeroCommand} from './HeroCommand'
+import type {HeroExecutionContext} from '../../../application/navigation/HeroExecutionContext'
 import type {Orientation} from '../../../domain/navigation/Orientation'
 import type {WayPointRef} from '../../../domain/navigation/WayPointRef'
 
-export class PlaceHero implements HeroMoveCommand {
+export class PlaceHero implements HeroCommand {
 
   constructor(
     private readonly wayPointRef: WayPointRef,

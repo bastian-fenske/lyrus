@@ -1,5 +1,5 @@
-import type {HeroExecutionContext} from '../HeroExecutionContext'
-import type {HeroMoveCommand} from './HeroMoveCommand'
+import type {HeroExecutionContext} from '../../../application/navigation/HeroExecutionContext'
+import type {HeroCommand} from './HeroCommand'
 import type {WayPoint} from '../../../domain/navigation/WayPoint'
 
 interface MoveToHooks {
@@ -9,7 +9,7 @@ interface MoveToHooks {
   onCancel?: () => void
 }
 
-export class MoveTo implements HeroMoveCommand {
+export class MoveTo implements HeroCommand {
 
   private cancelled = false
   private activeAnimation: number | null = null

@@ -1,7 +1,7 @@
 import type {EntityMapBase} from '../../domain/entities/EntityTypes'
 import type {Orientation} from '../../domain/navigation/Orientation'
 import type {WayPointRef} from '../../domain/navigation/WayPointRef'
-import type {HeroMoveCommand} from '../navigation/move-commands/HeroMoveCommand'
+import type {HeroCommand} from '../../presentation/commands/hero/HeroCommand'
 import type {HeroIntentCompiler} from './HeroIntentCompiler'
 import type {ActionIntent, ActionState, ActorId, QueueMode, SubmitActionOptions} from './ActionTypes'
 import type {HeroPresentationRuntime} from '../../presentation/HeroPresentationRuntime'
@@ -15,7 +15,7 @@ interface ActionRecord<T extends EntityMapBase> {
   state: ActionState<T>
   actorId: ActorId
   blocking: boolean
-  commands: HeroMoveCommand[]
+  commands: HeroCommand[]
 }
 
 export class ActionService<T extends EntityMapBase> {
@@ -192,7 +192,7 @@ export class ActionService<T extends EntityMapBase> {
     }
   }
 
-  private compile(actorId: ActorId, intent: ActionIntent<T>): HeroMoveCommand[] {
+  private compile(actorId: ActorId, intent: ActionIntent<T>): HeroCommand[] {
     if (actorId === 'hero') {
       return this.heroIntentCompiler.compile(intent).commands
     }

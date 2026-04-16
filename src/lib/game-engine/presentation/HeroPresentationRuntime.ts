@@ -1,15 +1,15 @@
 import {BehaviorSubject} from 'rxjs'
 import type {GameMap} from '../domain/navigation/GameMap'
-import type {HeroMoveCommand} from '../application/navigation/move-commands/HeroMoveCommand'
+import type {HeroCommand} from './commands/hero/HeroCommand'
 import type {HeroRenderState} from '../rendering/HeroRenderState'
 import type {PresentationActionState} from '../application/actions/ActionTypes'
 import type {HeroExecutionContext} from '../application/navigation/HeroExecutionContext'
 
 interface RunningAction {
   actorId: string
-  commands: HeroMoveCommand[]
+  commands: HeroCommand[]
   cancelled: boolean
-  activeCommand: HeroMoveCommand | null
+  activeCommand: HeroCommand | null
 }
 
 export class HeroPresentationRuntime {
@@ -27,7 +27,7 @@ export class HeroPresentationRuntime {
     private readonly inspectEntity: (entityId: string) => void) {
   }
 
-  public async execute(actionId: string, actorId: string, commands: HeroMoveCommand[]): Promise<'completed' | 'cancelled'> {
+  public async execute(actionId: string, actorId: string, commands: HeroCommand[]): Promise<'completed' | 'cancelled'> {
     const runningAction: RunningAction = {
       actorId,
       commands,
@@ -136,11 +136,11 @@ export class HeroPresentationRuntime {
     })
   }
 
-  private commandName(command: HeroMoveCommand): string {
+  private commandName(command: HeroCommand): string {
     return command.constructor.name
   }
 
-  private commandNameOf(commands: HeroMoveCommand[], index: number): string | null {
+  private commandNameOf(commands: HeroCommand[], index: number): string | null {
     const command = commands[index]
     if (command === undefined) {
       return null

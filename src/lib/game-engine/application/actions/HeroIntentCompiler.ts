@@ -3,17 +3,17 @@ import type {GameMap} from '../../domain/navigation/GameMap'
 import {Orientation} from '../../domain/navigation/Orientation'
 import {WayPointRef} from '../../domain/navigation/WayPointRef'
 import {HeroMovementPlanner, type HeroMovementState} from '../navigation/HeroMovementPlanner'
-import type {HeroMoveCommand} from '../navigation/move-commands/HeroMoveCommand'
-import {InspectEntity} from '../navigation/move-commands/InspectEntity'
-import {MoveTo} from '../navigation/move-commands/MoveTo'
-import {PlaceHero} from '../navigation/move-commands/PlaceHero'
-import {SwitchScene} from '../navigation/move-commands/SwitchScene'
-import {TurnTo} from '../navigation/move-commands/TurnTo'
-import {UseEntity} from '../navigation/move-commands/UseEntity'
+import type {HeroCommand} from '../../presentation/commands/hero/HeroCommand'
+import {InspectEntity} from '../../presentation/commands/hero/InspectEntity'
+import {MoveTo} from '../../presentation/commands/hero/MoveTo'
+import {PlaceHero} from '../../presentation/commands/hero/PlaceHero'
+import {SwitchScene} from '../../presentation/commands/hero/SwitchScene'
+import {TurnTo} from '../../presentation/commands/hero/TurnTo'
+import {UseEntity} from '../../presentation/commands/hero/UseEntity'
 import type {ActionIntent, InvestigateIntent, MoveIntent, UseIntent} from './ActionTypes'
 
 export interface CompiledHeroIntent {
-  commands: HeroMoveCommand[]
+  commands: HeroCommand[]
 }
 
 export class HeroIntentCompiler<T extends EntityMapBase> {
@@ -25,9 +25,7 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
   }
   private planVersion = 0
 
-  constructor(
-    private readonly map: GameMap
-  ) {
+  constructor(private readonly map: GameMap) {
   }
 
   public placeHero(target: WayPointRef, orientation: Orientation): CompiledHeroIntent {
@@ -84,7 +82,7 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
     const version = this.planVersion + 1
     this.planVersion = version
 
-    const commands: HeroMoveCommand[] = []
+    const commands: HeroCommand[] = []
 
     for (const step of steps) {
       const from = this.map.getWayPoint(step.from)
@@ -139,7 +137,7 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
   }
 
   private compileInvestigate(intent: InvestigateIntent<T>): CompiledHeroIntent {
-    const commands: HeroMoveCommand[] = []
+    const commands: HeroCommand[] = []
 
     if (intent.targetWayPointName !== undefined) {
       const moveIntent = {
@@ -164,7 +162,7 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
     }
   }
 
-  private buildPortalCommands(wayPointRef: WayPointRef): HeroMoveCommand[] {
+  private buildPortalCommands(wayPointRef: WayPointRef): HeroCommand[] {
     const reachedWayPoint = this.map.getWayPoint(wayPointRef)
     const portal = reachedWayPoint?.portal ?? null
     if (portal === null) {
@@ -185,7 +183,7 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
     ]
   }
 
-  private createCommitCurrentCommand(target: WayPointRef): HeroMoveCommand {
+  private createCommitCurrentCommand(target: WayPointRef): HeroCommand {
     return {
       execute: async () => {
         this.movementState.current = target

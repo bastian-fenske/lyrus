@@ -1,8 +1,8 @@
-import type {HeroMoveCommand} from './HeroMoveCommand'
+import type {HeroCommand} from './HeroCommand'
 import type {Orientation} from '../../../domain/navigation/Orientation'
-import type {HeroExecutionContext} from '../HeroExecutionContext'
+import type {HeroExecutionContext} from '../../../application/navigation/HeroExecutionContext'
 
-export class TurnTo implements HeroMoveCommand {
+export class TurnTo implements HeroCommand {
 
   constructor(
     private readonly orientation: Orientation) {}

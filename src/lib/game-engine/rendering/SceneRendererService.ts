@@ -3,7 +3,7 @@ import type {SceneLayout} from '../domain/layout/SceneLayout'
 import type {EntityMapBase} from '../domain/entities/EntityTypes'
 import type {ZoneService} from '../application/zones/ZoneService'
 
-const clickableAreaOpacity = .2
+const clickableAreaOpacity = .0
 
 export class SceneRendererService<T extends EntityMapBase> {
 
