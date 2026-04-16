@@ -8,7 +8,6 @@ import {EntityService} from './application/entities/EntityService'
 import {ZoneService} from './application/zones/ZoneService'
 import type {EntityMapBase} from './domain/entities/EntityTypes'
 import {WayPoint} from './domain/navigation/WayPoint'
-import {Orientation} from './domain/navigation/Orientation'
 import type {SceneLayout} from './domain/layout/SceneLayout'
 import {SceneRenderApi} from './rendering/entities/SceneRenderApi'
 import {NavigationApi} from './api/NavigationApi'
@@ -16,6 +15,7 @@ import {HeroIntentCompiler} from './application/actions/HeroIntentCompiler'
 import {HeroPresentationRuntime} from './presentation/HeroPresentationRuntime'
 import {HeroPresentationService} from './presentation/HeroPresentationService'
 import {ActionService} from './application/actions/ActionService'
+import {WayPointRef} from './domain/navigation/WayPointRef'
 
 export class GameEngine {
 
@@ -76,15 +76,12 @@ export class GameEngine {
       layoutsBySceneId.set(scene.id, layout)
 
       layout.waypoints.forEach(([name, x, y, scale, entryOrientation = null, portalTarget = null]) => {
-        const wayPoint = new WayPoint(name, x, y, scale)
-        if (entryOrientation !== null) {
-          wayPoint.setEntryOrientation(entryOrientation)
-        } else {
-          wayPoint.setEntryOrientation(Orientation.S)
-        }
-        if (portalTarget !== null) {
-          wayPoint.setPortal(portalTarget)
-        }
+        const wayPoint = new WayPoint(name,
+          x,
+          y,
+          scale,
+          portalTarget ? WayPointRef.normalize(portalTarget): null,
+          entryOrientation)
         gameApi.map.addWayPoint(scene.id, wayPoint)
       })
 

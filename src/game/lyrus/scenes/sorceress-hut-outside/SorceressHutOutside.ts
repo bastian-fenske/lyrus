@@ -37,7 +37,7 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
 
   public setUpLogic(api: GameApi<LyrusEntityMap>): void {
     
-    api.zone(this.id, 'door-zone').onClick((api => {
+    api.zone(this.id, 'door-zone').onClick(api => {
       api.navigation.moveTo('door')
       setTimeout(() => {
         
@@ -55,7 +55,7 @@ export class SorceressHutOutside extends Scene<LyrusEntityMap> {
         }, 1000)
         
       }, 2000)
-    }))
+    })
     api.zone(this.id, 'forest-zone').setInteraction('forest-exit', null)
 
     api.entity('door').onUse((state, gameApi) => {
