@@ -174,11 +174,9 @@ export class HeroIntentCompiler<T extends EntityMapBase> {
       return []
     }
 
-    const arrivalOrientation = reachedWayPoint?.portalTargetOrientation ?? destinationWayPoint.entryOrientation
-
     return [
       new SwitchScene(portal.sceneId),
-      new PlaceHero(portal, arrivalOrientation),
+      new PlaceHero(portal, destinationWayPoint.entryOrientation),
       this.createCommitCurrentCommand(portal)
     ]
   }
